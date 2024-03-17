@@ -14,7 +14,7 @@
 
 <img src="./screenshots/setting.png" style="flex:1; margin: 5px;width:50%">
 
-复制 [This file](https://github.com/fengkx/miniflux-theme-pure/tree/master/dist/style.css) 到 设置-自定义CSS
+复制 [stye.css](https://github.com/rootknight/Miniflux-Theme-Reeder/blob/main/style.css) 到 设置-自定义CSS
 
 一些建议
 - 主题选择 System - Sans Serif 可跟随系统切换light/dark模式
