@@ -697,6 +697,7 @@ main {
         }
         & .category {
           margin-left: 28px;
+          margin-top: -6px;
         }
       }
       & .item-meta {
@@ -704,7 +705,7 @@ main {
           display: flex;
           justify-content: space-between;
           padding-left: 24px;
-          margin-bottom: -8px;
+          margin: 0 0 -6px;
           & .item-meta-info-timestamp {
             order: 3;
           }
@@ -759,31 +760,32 @@ main {
         }
         & .feed-entries-counter {
           position: absolute;
-          top: 20px;
+          top: 18px;
           right: 12px;
         }
         & .category {
           position: absolute;
-          left: 14px;
+          left: 10px;
           top: 80px;
+          z-index: 1;
         }
       }
       & .item-meta {
         & .item-meta-info {
-          margin: 0 0 48px;
+          padding: 0 0 24px;
           position: relative;
         }
         /* 最后检查时间 */
         & .item-meta-info-checked-at {
           position: absolute;
-          top: 4px;
+          top: 0;
           right: 4px;
         }
         /* 下次检查时间 */
         & .item-meta-info-next-check-at {
           position: absolute;
           right: 4px;
-          bottom: -32px;
+          bottom: 0;
         }
         & .item-meta-icons {
           display: flex;
@@ -813,6 +815,7 @@ main {
           padding-left: 8px;
         }
         & .item-meta-icons {
+          margin: 0;
           display: flex;
           justify-content: flex-end;
           gap: 8px;
@@ -961,7 +964,7 @@ main .pagination-bottom {
       }
     }
     & .entry-meta {
-      margin: 0 24px 16px;
+      margin: 0 24px 8px 16px;
       display: flex;
       align-items: center;
       flex-direction: row;
@@ -973,6 +976,7 @@ main .pagination-bottom {
         }
         & em {
           font-style: normal;
+          padding: 8px;
         }
       }
       & .entry-website {
