@@ -764,7 +764,7 @@ main {
         }
         & .category {
           position: absolute;
-          left: 8px;
+          left: 14px;
           top: 80px;
         }
       }
