@@ -961,7 +961,7 @@ main .pagination-bottom {
       }
     }
     & .entry-meta {
-      margin: 0 16px 16px;
+      margin: 0 24px 16px;
       display: flex;
       align-items: center;
       flex-direction: row;
