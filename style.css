@@ -230,51 +230,44 @@ a {
 /* 二次确认对话框 */
 .confirm {
   color: var(--title-color);
-  position: fixed;
-  top: 0;
-  padding: 24px 16px;
-  background-color: #000000c9;
-  left: 0;
+  width: 100%;
   display: flex;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
   align-items: center;
-  font-size: 0rem;
+  font-size: 0;
   z-index: 999;
+  justify-content: flex-end;
+  text-wrap: nowrap;
+  /* 添加标题 */
+  &::before {
+    content: "确认吗";
+    font-size: 1rem;
+    margin-right: 4px;
+  }
   & button {
     color: var(--button-primary-color);
     background-color: var(--button-primary-background);
-    padding: 0;
-    font-size: 1rem;
-    width: 144.5px;
-    height: 48px;
+    padding: 4px 16px;
+    height: 32px;
+    font-size: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 5px;
+    margin: 0;
     &:first-child {
-      border-radius: 0 0 0 5px;
-      position: relative;
-      /* 添加确认对话框 */
+      order: 1;
+      margin-right: 4px;
       &::before {
-        content: "你确定吗？";
-        width: 273px;
-        position: absolute;
-        top: -64px;
-        left: 0px;
-        padding: 8px;
-        background: var(--button-primary-background);
-        border-radius: 5px 5px 0px 0px;
-        height: 48px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-bottom: 1px solid var(--item-border-color);
+        content: "是";
+        font-size: 1rem;
       }
     }
     &:last-child {
-      border-radius: 0 0 5px 0;
-      border-left: 1px solid var(--item-border-color);
+      order: 2;
+      &::before {
+        content: "否";
+        font-size: 1rem;
+      }
     }
   }
 }
@@ -520,8 +513,25 @@ a {
         & .page-button[data-action="markPageAsRead"] {
           display: none;
         }
+        /* 全部标记为已读 的confirm标题 */
+        & .page-button[data-url="/mark-all-as-read"] + .confirm {
+          &::before {
+            content: "全部已读";
+          }
+        }
+        /* 历史页 清理历史 的confirm标题 */
+        & .page-button[data-url="/history/flush"] + .confirm {
+          &::before {
+            content: "清理历史";
+          }
+        }
       }
     }
+  }
+
+  /* 隐藏 已分享的文章页 顶部操作按钮 */
+  & nav[aria-label="已分享的文章 Menu"] {
+    display: none;
   }
 }
 
@@ -654,9 +664,9 @@ main {
         & a:first-of-type:not(:has(> img))::before {
           content: "M";
           background-color: #777;
-          width: 16px;
+          width: 32px;
           height: 16px;
-          font-size: 12px;
+          font-size: 8px;
           color: #fff;
           border-radius: 4px;
           display: flex;
@@ -730,10 +740,25 @@ main {
           & > :not(.item-meta-icons-delete) {
             display: none;
           }
-          /* 单独修复 已分享的文章页-文章卡片-取消分享 按钮 */
           & .item-meta-icons-delete {
+            /* 只显示 取消分享 文本 */
+            font-size: 1rem;
+            /* 历史页-文章卡片-取消分享 按钮 */
+            & > button {
+              & > svg {
+                display: none;
+              }
+              & > .icon-label {
+                display: inline-block;
+              }
+            }
+            /* 已分享的文章页-文章卡片-取消分享 按钮 */
             & > svg {
               display: none;
+            }
+            /* 取消分享 的confirm标题 */
+            & .confirm::before {
+              content: "取消分享";
             }
           }
         }
@@ -797,6 +822,12 @@ main {
           justify-content: flex-end;
           gap: 8px;
           align-items: center;
+          & .item-meta-icons-remove {
+            /* 删除源 的confirm标题 */
+            & .confirm::before {
+              content: "删除源";
+            }
+          }
         }
       }
       & .parsing-error {
