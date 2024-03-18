@@ -1070,6 +1070,18 @@ main .pagination-bottom {
   }
 }
 
+/* 文章出现动画 */
+@keyframes fadein {
+  0% {
+    transform: translateY(32px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 /* 文章详情页-头部标题 */
 .entry {
   padding-top: 64px;
@@ -1079,6 +1091,8 @@ main .pagination-bottom {
     & h1#page-header-title {
       margin: 0;
       padding: 0 16px;
+      animation: fadein 100ms ease-in;
+
       & a {
         display: block;
         width: 100%;
@@ -1096,6 +1110,7 @@ main .pagination-bottom {
       align-items: center;
       flex-direction: row;
       justify-content: space-between;
+      animation: fadein 100ms ease-in;
       & .entry-author {
         order: 0;
         padding: 8px;
@@ -1135,6 +1150,7 @@ main .pagination-bottom {
       padding-bottom: 4px;
       border-bottom: 1px dotted var(--entry-header-border-color);
       font-size: 0;
+      animation: fadein 100ms ease-in;
       & time,
       .entry-reading-time {
         font-size: 0.75rem;
@@ -1159,6 +1175,7 @@ main {
     padding: 16px 24px 64px;
     font-size: 1rem;
     line-height: 1.6rem;
+    animation: fadein 120ms ease-in;
     /* 图片视频等比全宽 */
     & :is(iframe, video, img, pre) {
       width: 100%;
