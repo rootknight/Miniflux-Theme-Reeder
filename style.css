@@ -385,6 +385,28 @@ a {
           &[href$="/subscribe"] {
             display: none;
           }
+          /* 显示未读计数 */
+          &[href$="/unread"] {
+            & .unread-counter-wrapper {
+              & .unread-counter {
+                /* 超过999时，显示999 */
+                font-size: 10px;
+                position: absolute;
+                top: 18px;
+                left: 26px;
+                white-space: nowrap;
+                width: 20px;
+                height: 20px;
+                display: flex;
+                border-radius: 50%;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+                color: var(--title-color);
+                background-color: transparent;
+              }
+            }
+          }
           /* 设置图标，采用 https://yesicon.app/tabler 图标 */
           &::before {
             /* 使用空content,mask-image应用svg */
@@ -1185,6 +1207,7 @@ main {
     padding: 16px 24px 64px;
     font-size: 1rem;
     line-height: 1.6rem;
+    overflow: auto;
     animation: fadein 120ms ease-in;
     /* 图片视频等比全宽 */
     & :is(iframe, video, img, pre) {
