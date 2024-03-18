@@ -674,16 +674,7 @@ main {
       /* 没有源图标时设置默认图标 */
       & .item-title {
         & a:first-of-type:not(:has(> img))::before {
-          content: "M";
-          background-color: #777;
-          width: 16px;
-          height: 16px;
-          font-size: 8px;
-          color: #fff;
-          border-radius: 4px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+          content: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48ZGVmcz48Y2xpcFBhdGggaWQ9ImEiPjxyZWN0IHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgcng9IjQiLz48L2NsaXBQYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjYSkiPjxyZWN0IHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgcng9IjQiIGZpbGw9IiM0MDQwNDAiLz48cGF0aCBkPSJNMTMuNiAwQTIuNCAyLjQgMCAwIDEgMTYgMi40djExLjJhMi40IDIuNCAwIDAgMS0yLjQgMi40SDIuNEEyLjQgMi40IDAgMCAxIDAgMTMuNlYyLjRBMi40IDIuNCAwIDAgMSAyLjQgMHptLTIuNCA0LjhjMC0uODExLTEuMDY5LTEuMTA3LTEuNDg2LS40MTFMOCA3LjI0NSA2LjI4NiA0LjM4OWMtLjQxNy0uNjk2LTEuNDg2LS40LTEuNDg2LjQxMXY2LjRhLjguOCAwIDAgMCAuOC44bC4wOTQtLjAwNkEuOC44IDAgMCAwIDYuNCAxMS4yVjcuNjg4bC45MTQgMS41MjMuMDYuMDg3YS44LjggMCAwIDAgMS4zMTItLjA4N0w5LjYgNy42ODhWMTEuMmEuOC44IDAgMCAwIDEuNiAweiIgZmlsbD0iI0ZGRiIvPjwvZz48L3N2Zz4=);
         }
         /* 源图标圆角 */
         & a:first-of-type img {
@@ -731,7 +722,7 @@ main {
         & .item-meta-info {
           display: flex;
           justify-content: space-between;
-          padding-left: 24px;
+          padding: 0 12px 0 24px;
           margin: 4px 0 -2px;
           & .item-meta-info-timestamp {
             order: 3;
@@ -973,7 +964,7 @@ main .pagination-bottom {
     height: 48px;
   }
   & .icon-label {
-    display: none;
+    font-size: 0;
     margin: 0;
     padding: 0;
   }
@@ -981,7 +972,7 @@ main .pagination-bottom {
     display: flex;
     justify-content: flex-end;
     flex-direction: row;
-    /* 大于820px宽度时，浮在屏幕右侧 */
+    /* 大于820px宽度时，悬浮菜单纵向布局 */
     @media screen and (min-width: 821px) {
       display: flex;
       flex-direction: column;
@@ -997,18 +988,37 @@ main .pagination-bottom {
       }
       & a {
         display: flex;
+        color: var(--button-primary-color);
       }
       & button {
         display: flex;
         padding: 8px;
+        color: var(--button-primary-color);
         &:hover {
           border-radius: 5px;
           background-color: var(--link-hover-bg-color);
         }
       }
-      /* 隐藏 跳转原文 按钮 */
-      & :is(a[href^="http"]) {
+      /* 取消分享 按钮 只保留文字 */
+      & button[data-url^="/entry/unshare/"] {
+        & .icon {
+          display: none;
+        }
+        & .icon-label {
+          font-size: 9px;
+          display: flex;
+          justify-content: flex-end;
+          word-break: break-all;
+        }
       }
+      /* 隐藏 跳转原文、查看评论 按钮 */
+      & :is(a[href^="http"]) {
+        display: none;
+      }
+    }
+    /* 分享按钮始终在最后 */
+    & :nth-child(4) {
+      order: 99;
     }
   }
 }
