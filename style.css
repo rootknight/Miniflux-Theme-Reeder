@@ -1029,14 +1029,14 @@ main .pagination-bottom {
     position: fixed;
     bottom: 8px;
     left: 25%;
-    transform: translateX(-10px);
+    transform: translateX(0);
   }
   /* 保存 */
   & button[data-save-url^="/entry/save/"] {
     position: fixed;
     bottom: 8px;
     left: 75%;
-    transform: translateX(-34px);
+    transform: translateX(-42px);
   }
   /* 获取全文 */
   & button[data-fetch-content-url^="/entry/download/"] {
