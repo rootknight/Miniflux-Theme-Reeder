@@ -957,6 +957,13 @@ main .items {
         /* 保存按钮 */
         & button[data-save-url^="/entry/save/"] {
           display: var(--item-meta-icons-save);
+           /* 保留 保存完成 文本 */
+          &[data-completed="true"] {
+            & .icon-label {
+              font-size: 14px;
+              font-weight: 500;
+            }
+          }
         }
         /* 跳转原文按钮 */
         & .item-meta-icons-external-url {
@@ -1244,7 +1251,8 @@ main .pagination-bottom {
       & .page-button[data-save-entry] {
         &[data-completed="true"] {
             & .icon-label {
-              font-size: 1rem;
+              font-size: 14px;
+              font-weight: 500;
             }
           }
       }
