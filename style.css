@@ -5,8 +5,8 @@
 /* 自定义配置（可根据自己喜好配置） */
 :root {
   /* 文章详情页字号、间距 */
-  --article-content-font-size: 1rem;
-  --article-content-line-height: 1.5;
+  --article-content-font-size: 1.1rem;
+  --article-content-line-height: 1.6;
 
   /* 文章卡片按钮（none 不显示；inline-blcok 显示） */
   --item-meta-icons-read: none; /* 已读/未读 */
@@ -34,7 +34,7 @@
   --data-save-entry: inline-flex; /* 保存 */
   --data-share-status: inline-flex; /* 分享 */
   --data-confirm: inline-flex; /* 取消分享 */
-  --data-original-link: none; /* 跳转原文 */
+  --data-original-link: inline-flex; /* 跳转原文 */
   --data-fetch-content-entry: inline-flex; /* 抓取全文 */
   --data-comments-link: none; /* 跳转评论 */
 
@@ -69,7 +69,7 @@
       }
     }
     /* 第三个按钮 */
-    & .page-button[data-save-entry] {
+    & .page-button[data-fetch-content-entry] {
       width: 40px;
       height: 40px;
       position: fixed;
@@ -83,7 +83,7 @@
       }
     }
     /* 第四个按钮 */
-    & .page-button[data-fetch-content-entry] {
+    & .page-link[data-original-link] {
       width: 40px;
       height: 40px;
       position: fixed;
@@ -611,7 +611,8 @@ a {
   & nav {
     height: 48px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    padding-top:8px;
     & ul {
       display: flex;
       flex-wrap: wrap;
@@ -956,12 +957,6 @@ main .items {
         /* 保存按钮 */
         & button[data-save-url^="/entry/save/"] {
           display: var(--item-meta-icons-save);
-          /* 保存完成时显示文本 */
-          &[data-completed="true"] {
-            & .icon-label {
-              font-size: 1rem;
-            }
-          }
         }
         /* 跳转原文按钮 */
         & .item-meta-icons-external-url {
@@ -1193,8 +1188,6 @@ main .pagination-bottom {
     padding-right: 8px;
     & ul {
       display: flex;
-      flex-wrap: wrap;
-      align-content: flex-start;
       align-items: flex-start;
       justify-content: flex-end;
       flex-direction: row;
@@ -1247,6 +1240,14 @@ main .pagination-bottom {
         padding: 0;
       }
     }
+    /* 保存完成时显示文本 */
+      & .page-button[data-save-entry] {
+        &[data-completed="true"] {
+            & .icon-label {
+              font-size: 1rem;
+            }
+          }
+      }
     @media screen and (max-width: 900px) {
       /* 已读/未读*/
       & .page-button[data-toggle-status] {
