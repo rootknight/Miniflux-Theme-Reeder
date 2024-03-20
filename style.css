@@ -2,11 +2,23 @@
 使用css原生嵌套，基于官方css修改，移除冗余操作，适配移动端，适配暗黑模式
 复制到 设置-自定义CSS */
 
-/* 自定义配置（可根据自己喜好配置） */
+/* 自定义配置start（可根据自己喜好配置） */
 :root {
-  /* 文章详情页字号、间距 */
-  --article-content-font-size: 1.1rem;
-  --article-content-line-height: 1.6;
+  /* 文章详情页 */
+  /* 标题 */
+  --article-title-font-size: 1.4rem; /* 标题字号 */
+  --article-title-line-height: 1.8; /* 标题行高 */
+  --article-title-font-weight: 800; /* 标题粗细 */
+  /* 文章内容 */
+  --article-content-font-size: 1.2rem; /* 字号 */
+  --article-content-line-height: 1.6; /* 行高 */
+  --article-content-font-weight: 400; /* 粗细 */
+  --article-top-padding: 80px; /* 顶部padding */
+  --article-bottom-padding: 96px; /* 底部padding */
+
+  /* 动画速度（0为禁用） */
+  --item-animation-duration: 120ms; /* 文章卡片 */
+  --article-animation-duration: 120ms; /* 文章内容 */
 
   /* 文章卡片按钮（none 不显示；inline-blcok 显示） */
   --item-meta-icons-read: none; /* 已读/未读 */
@@ -22,13 +34,13 @@
   --item-meta-icons-edit: inline; /* 编辑源 */
   --item-meta-icons-remove: inline; /* 删除源 */
 
-  /* 分类卡片 */
+  /* 分类卡片（none 不显示；inline-block 显示） */
   --item-meta-icons-entries: none; /* 查看所有文章 */
   --item-meta-icons-feeds: inline; /* 查看所有源 */
   --item-meta-edit: inline; /* 编辑分类 */
   --item-meta-icons-mark-as-read: inline; /* 全部标记为已读 */
 
-  /* 手机版文章详情页按钮（pad、PC默认全显示）（none 不显示；inline-flex 显示） */
+  /* 手机版文章详情页按钮（none 不显示；inline-flex 显示） */
   --data-toggle-status: inline-flex; /* 已读/未读 */
   --data-toggle-bookmark: inline-flex; /* 收藏 */
   --data-save-entry: inline-flex; /* 保存 */
@@ -97,7 +109,7 @@
     }
   }
 }
-/* 自定义配置（可根据自己喜好配置） */
+/* 自定义配置end */
 
 :root {
   --font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
@@ -327,12 +339,14 @@ a {
 /* 二次确认对话框 */
 .confirm {
   color: var(--title-color);
+  background-color: var(--body-background);
   width: 100%;
-  display: flex;
+  height: 100%;
+  display: inline-flex;
   align-items: center;
   font-size: 0;
   z-index: 999;
-  justify-content: flex-end;
+  justify-content: flex-start;
   text-wrap: nowrap;
   /* 添加标题 */
   &::before {
@@ -370,7 +384,32 @@ a {
 }
 
 /* alert样式 */
-/* 定义消失动画 */
+.alert {
+  z-index: 999;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 8px;
+  margin: 8px 16px;
+  & h3,
+  p,
+  a {
+    font-size: 1rem;
+    color: var(--alert-color);
+  }
+  & .confirm {
+    background-color: var(--alert-background-color);
+  }
+}
+.alert-error {
+  color: var(--parsing-error-color);
+  background-color: var(--alert-background-color);
+  & .confirm {
+    background-color: var(--alert-background-color);
+  }
+}
+/* 定义通知消失动画 */
 @keyframes fadeOut {
   from {
     opacity: 1;
@@ -379,34 +418,12 @@ a {
     display: none;
   }
 }
-.alert {
-  font-size: 1rem;
-  margin: 4px 3%;
+.flash-message {
   position: fixed;
   top: 96px;
-  z-index: 999;
-  width: 94%;
-  max-width: 820px;
-  border: none;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  max-width: 788px;
+  width: 100%;
   animation: fadeOut 5s linear forwards;
-  @media screen and (min-width: 821px) {
-    width: 100%;
-    margin: 4px 0;
-  }
-  & h3,
-  p {
-    font-size: 1rem;
-  }
-}
-.alert-error {
-  background-color: var(--alert-background-color);
-  & h3,
-  p {
-    color: var(--parsing-error-color);
-  }
 }
 
 /* 分类标签样式 */
@@ -594,17 +611,28 @@ a {
   height: 48px;
   background: var(--body-background);
   /* 修改页面header标题 */
-  & #page-header-title {
+  & h1#page-header-title {
     border: none;
     white-space: nowrap;
     font-size: 1.2rem;
     height: 48px;
     display: flex;
     align-items: center;
+    & a {
+      height: 48px;
+      align-items: center;
+      display: inline-flex;
+      color: var(--title-color);
+      text-decoration: none;
+      padding: 0;
+    }
     & span {
       /* 未读计数 */
       font-size: 1rem;
       color: var(--category-link-color);
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
     }
   }
   /* 修改页面header导航菜单 */
@@ -612,12 +640,14 @@ a {
     height: 48px;
     display: flex;
     align-items: flex-start;
-    padding-top:8px;
+    padding-top: 8px;
+    background-color: var(--body-background);
     & ul {
       display: flex;
       flex-wrap: wrap;
       justify-content: flex-end;
       gap: 6px;
+      background-color: var(--body-background);
       /* 页面header导航菜单按钮 */
       & li {
         display: flex;
@@ -625,11 +655,22 @@ a {
         padding: 0;
         line-height: 0;
         & .page-link,
-        a {
-          /* 隐藏文本 */
-          font-size: 0px;
-          padding: 4px;
+        a,
+        .page-button {
+          /* 是否显示文字 */
+          font-size: 0;
+          min-width: 32px;
+          height: 32px;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          vertical-align: middle;
           color: var(--button-primary-color);
+          &:hover {
+            background-color: var(--link-hover-bg-color);
+            border-radius: 5px;
+          }
           &:active {
             color: var(--button-primary-focus-background);
           }
@@ -637,34 +678,85 @@ a {
             padding: 0;
           }
         }
-        & .page-button {
-          /* 设定图标尺寸，点击后继续占位不消失 */
-          width: 32px;
-          height: 32px;
-          /* 隐藏文本 */
-          font-size: 0px;
-          padding: 4px;
-          color: var(--button-primary-color);
-          &:hover {
-            background-color: var(--link-hover-bg-color);
-            border-radius: 5px;
-          }
-        }
-        /* 隐藏 标记为已读，每页条目设为999999时按钮没用 */
+        /* 未读页 */
+        /* 标记为已读 */
         & .page-button[data-action="markPageAsRead"] {
           display: none;
         }
-        /* 全部标记为已读 的confirm标题 */
-        & .page-button[data-url="/mark-all-as-read"] + .confirm {
-          &::before {
-            content: "全部已读";
+        /* 全部标记已读 */
+        & .page-button[data-url="/mark-all-as-read"] {
+          & + .confirm {
+            &::before {
+              content: "全部已读";
+            }
           }
         }
-        /* 历史页 清理历史 的confirm标题 */
-        & .page-button[data-url="/history/flush"] + .confirm {
-          &::before {
-            content: "清理历史";
+
+        /* 历史页 */
+        /* 清理历史 */
+        & .page-button[data-url="/history/flush"] {
+          & + .confirm {
+            &::before {
+              content: "清理历史";
+            }
           }
+        }
+        /* 已分享的文章 */
+        & .page-link[href="/shares"] {
+        }
+
+        /* 源列表页 */
+        /* 源 */
+        & .page-link[href="/feeds"] {
+        }
+        /* 新增源 */
+        & .page-link[href="/subscribe"] {
+        }
+        /* 导出 */
+        & .page-link[href="/export"] {
+        }
+        /* 导入 */
+        & .page-link[href="/import"] {
+        }
+        /* 在后台更新源 */
+        & form[action="/feeds/refresh"] .page-button {
+        }
+
+        /* 源详情页 */
+        /* 显示所有文章 */
+        & .page-link[href^="/feed/"][href$="/entries/all"] {
+        }
+        /* 更新 */
+        &
+          .page-button[data-url^="/feed/"][data-url$="/refresh?forceRefresh=true"] {
+        }
+        /* 编辑 */
+        & .page-link[href="/feed/"][href$="/edit"] {
+        }
+        /* 删除此源 */
+        & .page-button[data-url="/feed/"][data-url$="/remove"] {
+        }
+
+        /* 分类列表 */
+        /* 新建分类 */
+        & .page-link[href="/category/create"] {
+        }
+
+        /* 分类详情页 */
+        /* 标记为已读 */
+        & .page-button[data-action="markPageAsRead"] {
+        }
+        /* 全部标记为已读 */
+        & .page-button[data-url^="/category/"][data-url$="/mark-all-as-read"] {
+        }
+        /* 显示所有文章 */
+        & .page-link[href^="/category/"][href$="/entries/all"] {
+        }
+        /* 源 */
+        & .page-link[href="/category/"][href$="/feeds"] {
+        }
+        /* 在后台更新全部源 */
+        & form[action="/category/"][action$="/entries/refresh"] .page-button {
         }
       }
     }
@@ -751,7 +843,7 @@ main .items {
   /* 卡片通用样式 */
   & .item {
     margin-bottom: 8px;
-    animation: fadein 120ms ease-in;
+    animation: fadein var(--item-animation-duration) ease-in;
     & .item-header {
       & .item-title {
         width: 100%;
@@ -788,19 +880,16 @@ main .items {
           & > :is(a, button) {
             color: var(--button-primary-color);
             display: flex;
-            align-items: center;
-            padding: 4px;
-            text-align: center;
-            /* 固定按钮宽度-适用不显示icon-label时的宽度 */
-            width: 40px;
             justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-width: 32px;
+            height: 32px;
+            padding: 0;
+            text-decoration: none;
             &:hover {
               background-color: var(--link-hover-bg-color);
               border-radius: 5px;
-            }
-            /* 隐藏下划线 */
-            & span {
-              text-decoration: none;
             }
             & .icon-label {
               /* 控制所有卡片操作是否显示文字 */
@@ -957,10 +1046,10 @@ main .items {
         /* 保存按钮 */
         & button[data-save-url^="/entry/save/"] {
           display: var(--item-meta-icons-save);
-           /* 保留 保存完成 文本 */
+          /* 保留 保存完成 文本 */
           &[data-completed="true"] {
             & .icon-label {
-              font-size: 14px;
+              font-size: 12px;
               font-weight: 500;
             }
           }
@@ -1003,8 +1092,8 @@ main .items {
       }
       & .feed-entries-counter {
         position: absolute;
-        top: 18px;
         right: 12px;
+        display: inline-flex;
       }
       & .category {
         position: absolute;
@@ -1065,6 +1154,12 @@ main .items {
       padding: 8px;
       color: var(--parsing-error-color);
     }
+    &.feed-has-unread .confirm {
+      background-color: var(--feed-has-unread-background-color);
+    }
+    &.feed-parsing-error .confirm {
+      background-color: var(--feed-parsing-error-background-color);
+    }
   }
   /* 分类卡片 */
   & .category-item {
@@ -1103,6 +1198,9 @@ main .items {
           display: var(--item-meta-icons-mark-as-read);
         }
       }
+    }
+    &.category-has-unread .confirm {
+      background-color: var(--category-has-unread-background-color);
     }
   }
 }
@@ -1248,14 +1346,14 @@ main .pagination-bottom {
       }
     }
     /* 保存完成时显示文本 */
-      & .page-button[data-save-entry] {
-        &[data-completed="true"] {
-            & .icon-label {
-              font-size: 14px;
-              font-weight: 500;
-            }
-          }
+    & .page-button[data-save-entry] {
+      &[data-completed="true"] {
+        & .icon-label {
+          font-size: 14px;
+          font-weight: 500;
+        }
       }
+    }
     @media screen and (max-width: 900px) {
       /* 已读/未读*/
       & .page-button[data-toggle-status] {
@@ -1330,20 +1428,20 @@ main .pagination-bottom {
 
 /* 文章详情页-头部标题 */
 .entry {
-  padding-top: 64px;
+  padding-top: var(--article-top-padding);
   & .entry-header {
     padding-inline: 0;
     border: none;
     & h1#page-header-title {
       margin: 0;
       padding: 0 16px;
-      animation: fadein 100ms ease-in;
-
       & a {
         display: block;
         width: 100%;
-        font-size: 1.4rem;
-        line-height: 1.8rem;
+        font-size: var(--article-title-font-size);
+        line-height: var(--article-title-line-height);
+        font-weight: var(--article-title-font-weight);
+        animation: fadein var(--article-animation-duration) ease-in;
         &:hover {
           color: var(--title-color);
         }
@@ -1356,7 +1454,7 @@ main .pagination-bottom {
       align-items: center;
       flex-direction: row;
       justify-content: space-between;
-      animation: fadein 100ms ease-in;
+      animation: fadein var(--article-animation-duration) ease-in;
       & .entry-author {
         order: 0;
         padding: 8px;
@@ -1396,7 +1494,7 @@ main .pagination-bottom {
       padding-bottom: 4px;
       border-bottom: 1px dotted var(--entry-header-border-color);
       font-size: 0;
-      animation: fadein 100ms ease-in;
+      animation: fadein var(--article-animation-duration) ease-in;
       & time,
       .entry-reading-time {
         font-size: 0.75rem;
@@ -1418,11 +1516,12 @@ main {
   }
   /* 文章详情-内容 */
   & article.entry-content {
-    padding: 16px 24px 64px;
+    padding: 16px 24px var(--article-bottom-padding);
     font-size: var(--article-content-font-size);
     line-height: var(--article-content-line-height);
+    font-weight: var(--article-content-font-weight);
     overflow: auto;
-    animation: fadein 120ms ease-in;
+    animation: fadein var(--article-animation-duration) ease-in;
     /* 图片视频等比全宽 */
     & :is(iframe, video, img, pre) {
       width: 100%;
@@ -1435,8 +1534,8 @@ main {
       margin: 0 0 0 8px;
       padding: 0 18px 0 8px;
       font-style: none;
-      font-size: 0.9rem;
-      line-height: 1.4rem;
+      font-size: 0.9em;
+      line-height: 1.4em;
     }
     /* 表格 */
     & table {
@@ -1632,10 +1731,6 @@ main {
       border-radius: 5px;
       border: none;
     }
-  }
-  /* 修正用户页alert */
-  & > .alert {
-    position: static;
   }
 }
 
