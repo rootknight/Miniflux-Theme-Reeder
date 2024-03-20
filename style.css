@@ -619,7 +619,6 @@ a {
     height: 48px;
     display: flex;
     align-items: center;
-    max-width: calc(100vw - 238px);
     & a {
       height: 48px;
       align-items: center;
@@ -627,7 +626,7 @@ a {
       color: var(--title-color);
       text-decoration: none;
       padding: 0;
-      max-width: calc(100vw - 270px);
+      max-width: calc(100vw - 254px);
       overflow: scroll;
     }
     & span {
