@@ -1277,7 +1277,7 @@ main .pagination-bottom {
 .entry .entry-header .entry-actions {
   margin: 0;
   /* 小于900px宽度时,覆盖header的设置和登出 */
-  @media screen and (max-width: 899px) {
+  @media screen and (max-width: 851px) {
     position: fixed;
     z-index: 122;
     top: 0;
@@ -1302,13 +1302,13 @@ main .pagination-bottom {
     }
   }
   /* 大于900px宽度时，浮在屏幕右侧 */
-  @media screen and (min-width: 900px) {
+  @media screen and (min-width: 852px) {
     position: fixed;
     z-index: 122;
     margin: 0;
     padding: 8px 16px;
     background: var(--body-background);
-    left: 95%;
+    right: 8px;
     padding: 0;
     top: 56px;
     & ul {
@@ -1316,6 +1316,7 @@ main .pagination-bottom {
       flex-direction: column;
       border-radius: 10px;
       height: fit-content;
+      align-items: flex-end;
     }
   }
   /* 按钮样式 */
@@ -1343,6 +1344,23 @@ main .pagination-bottom {
         font-size: 0;
         margin: 0;
         padding: 0;
+      }
+    }
+    /* 替换取消分享图标 */
+    & .page-button[data-confirm] {
+      /* 替换原垃圾桶图标 */
+      &::before {
+        mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNjY2MiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIiBkPSJNMyAxMmEzIDMgMCAxIDAgNiAwIDMgMyAwIDEgMC02IDBtMTItNmEzIDMgMCAxIDAgNiAwIDMgMyAwIDEgMC02IDBtLjg2MSA5Ljg5NmEzIDMgMCAwIDAgNC4yNjUgNC4yMm0uNTc4LTMuNDE3YTMgMyAwIDAgMC0xLjUwNy0xLjQ1TTguNyAxMC43bDEuMzM2LS42ODhNMTIuNjYgOC42NiAxNS4zIDcuM20tNi42IDYgNi42IDMuNE0zIDNsMTggMTgiLz48L3N2Zz4=);
+        mask-size: cover;
+        mask-repeat: no-repeat;
+        background-color: var(--button-primary-color);
+        display: block;
+        width: 24px;
+        height: 24px;
+        content: "";
+      }
+      & .icon {
+        display: none;
       }
     }
     /* 保存完成时显示文本 */
@@ -1374,26 +1392,12 @@ main .pagination-bottom {
       /* 取消分享 */
       & .page-button[data-confirm] {
         display: var(--data-confirm);
-        /* 替换原垃圾桶图标 */
-        &::before {
-          mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNjY2MiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIiBkPSJNMyAxMmEzIDMgMCAxIDAgNiAwIDMgMyAwIDEgMC02IDBtMTItNmEzIDMgMCAxIDAgNiAwIDMgMyAwIDEgMC02IDBtLjg2MSA5Ljg5NmEzIDMgMCAwIDAgNC4yNjUgNC4yMm0uNTc4LTMuNDE3YTMgMyAwIDAgMC0xLjUwNy0xLjQ1TTguNyAxMC43bDEuMzM2LS42ODhNMTIuNjYgOC42NiAxNS4zIDcuM20tNi42IDYgNi42IDMuNE0zIDNsMTggMTgiLz48L3N2Zz4=);
-          mask-size: cover;
-          mask-repeat: no-repeat;
-          background-color: var(--button-primary-color);
-          display: block;
-          width: 24px;
-          height: 24px;
-          content: "";
-        }
-        & .icon {
-          display: none;
-        }
         & + .confirm {
           position: absolute;
           background-color: var(--body-background);
-          right: 16px;
+          right: 8px;
           border-radius: 0 0 0 5px;
-          top: 56px;
+          top: 48px;
           width: fit-content;
           padding-left: 8px;
         }
