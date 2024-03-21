@@ -1724,6 +1724,7 @@ main {
       width: 100%;
       border: var(--input-border);
       border-radius: 5px;
+      color: var(--input-color);
       background-color: var(--input-background);
     }
     /* 每页文章数 */
