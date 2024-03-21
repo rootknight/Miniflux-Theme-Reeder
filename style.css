@@ -631,7 +631,7 @@ a {
       text-decoration: none;
       padding: 0;
       max-width: calc(100vw - 254px);
-      overflow: scroll;
+      overflow-x: hidden;
     }
     & span {
       /* 未读计数 */
