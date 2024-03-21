@@ -22,16 +22,18 @@
 - 主题选择 System - Sans Serif 可跟随系统切换light/dark模式
 - 设置 每页文章数 为 999999 以隐藏 分页按钮
 - 手机端使用 PWA 模式(安装到桌面使用)
+  - Android使用Chrome/Edge添加至手机
+  - iPhone使用Safari添加到屏幕
 
 # 截图
 
 <div style="display:flex;">
-    <img src="./screenshots/unread.png" style="flex:1; margin: 5px;width:50%;height:auto">
-    <img src="./screenshots/article.png" style="flex:1; margin: 5px;width:50%;height:auto">
-    <img src="./screenshots/unread-dark.png" style="flex:1; margin: 5px;width:50%;height:auto">
-    <img src="./screenshots/article-dark.png" style="flex:1; margin: 5px;width:50%;height:auto">
+    <img src="./screenshots/unread.png" style="flex:1; margin: 5px;width:20%;height:auto">
+    <img src="./screenshots/article.png" style="flex:1; margin: 5px;width:20%;height:auto">
+    <img src="./screenshots/unread-dark.png" style="flex:1; margin: 5px;width:20%;height:auto">
+    <img src="./screenshots/article-dark.png" style="flex:1; margin: 5px;width:20%;height:auto">
 </div>
 <div>
-    <img src="./screenshots/pc-unread.png" style="flex:1; margin: 5px;width:100%;height:auto">
-    <img src="./screenshots/pc-article.png" style="flex:1; margin: 5px;width:100%;height:auto">
+    <img src="./screenshots/pc-unread.png" style="flex:1; margin: 5px;width:40%;height:auto">
+    <img src="./screenshots/pc-article.png" style="flex:1; margin: 5px;width:40%;height:auto">
 </div>
