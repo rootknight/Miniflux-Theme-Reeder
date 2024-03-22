@@ -20,25 +20,41 @@
   --item-animation-duration: 120ms; /* 文章卡片 */
   --article-animation-duration: 120ms; /* 文章内容 */
 
-  /* 文章卡片按钮（none 不显示；inline-blcok 显示） */
+  /* 文章卡片按钮（none 不显示；inline-blcok 显示;font-size 0为不显示） */
   --item-meta-icons-read: none; /* 已读/未读 */
+  --item-meta-icons-read-font-size: 0;
   --item-meta-icons-star: none; /* 收藏 */
+  --item-meta-icons-star-font-size: 0;
   --item-meta-icons-share: none; /* 分享 */
+  --item-meta-icons-share-font-size: 0;
   --item-meta-icons-delete: none; /* 取消分享 */
+  --item-meta-icons-delete-font-size: 0;
   --item-meta-icons-save: none; /* 保存 */
+  --item-meta-icons-save-font-size: 0;
   --item-meta-icons-external-url: none; /* 跳转原文 */
+  --item-meta-icons-external-url-font-size: 0;
   --item-meta-icons-comments: none; /* 跳转评论 */
+  --item-meta-icons-comments-font-size: 0;
 
-  /* 源卡片按钮（none 不显示；inline-block 显示） */
+  /* 源卡片按钮（none 不显示；inline-block 显示;font-size 0为不显示） */
   --item-meta-icons-refresh: inline; /* 刷新源 */
-  --item-meta-icons-edit: inline; /* 编辑源 */
-  --item-meta-icons-remove: inline; /* 删除源 */
+  --item-meta-icons-refresh-font-size: 0;
+  --item-meta-icons-edit-feed: inline; /* 编辑源 */
+  --item-meta-icons-edit-feed-font-size: 0;
+  --item-meta-icons-remove-feed: inline; /* 删除源 */
+  --item-meta-icons-remove-feed-font-size: 0;
+  --item-meta-icons-mark-as-read-feed: inline; /* 全部标记为已读 */
+  --item-meta-icons-mark-as-read-feed-font-size: 0.8rem;
 
-  /* 分类卡片（none 不显示；inline-block 显示） */
+  /* 分类卡片（none 不显示；inline-block 显示;font-size 0为不显示） */
   --item-meta-icons-entries: none; /* 查看所有文章 */
+  --item-meta-icons-entries-font-size: 0.8rem;
   --item-meta-icons-feeds: inline; /* 查看所有源 */
+  --item-meta-icons-feeds-font-size: 0.8rem;
   --item-meta-edit: inline; /* 编辑分类 */
+  --item-meta-edit-font-size: 0.8rem;
   --item-meta-icons-mark-as-read: inline; /* 全部标记为已读 */
+  --item-meta-icons-mark-as-read-font-size: 0.8rem;
 
   /* 手机版文章详情页按钮（none 不显示；inline-flex 显示） */
   --data-toggle-status: inline-flex; /* 已读/未读 */
@@ -122,6 +138,7 @@
   --body-color: #454545;
   --body-background: #f7f6f4;
   --item-background: #fafbfc;
+  --item-background-hover: #f3f4f6;
   --hr-border-color: #ccc;
   --title-color: #454545;
   --link-color: #252524;
@@ -218,6 +235,7 @@
     --body-color: #dfdede;
     --body-background: #262322;
     --item-background: #161a18;
+    --item-background-hover: #393939;
     --hr-border-color: #4b5563;
     --title-color: #dfdede;
     --link-color: #dfdfdf;
@@ -862,34 +880,25 @@ main .items {
         & a {
           color: var(--title-color);
           display: flex;
-          column-gap: 8px;
-          align-items: center;
-          margin: 4px 0;
+          align-items: flex-start;
         }
       }
     }
     & .item-meta {
+      & ul {
+        margin: 0;
+      }
       & .item-meta-info {
         /* 隐藏meta竖线 */
         & li:not(:last-child):after {
           display: none;
         }
-        & .item-meta-info-title,
-        .item-meta-info-site-url {
-          & a {
-            color: var(--category-link-color);
-            &:hover {
-              color: var(--category-link-hover-color);
-            }
-          }
-        }
       }
       & .item-meta-icons {
-        display: flex;
-        justify-content: space-between;
         & li {
           margin: 0;
-          & > :is(a, button) {
+          & > a,
+          button {
             color: var(--button-primary-color);
             display: flex;
             justify-content: center;
@@ -905,11 +914,11 @@ main .items {
             }
             & .icon-label {
               /* 控制所有卡片操作是否显示文字 */
-              font-size: 0;
               padding: 0;
               margin: 0;
               display: inline-block;
               vertical-align: middle;
+              text-decoration: none;
             }
           }
         }
@@ -936,6 +945,12 @@ main .items {
     position: relative;
     display: flex;
     flex-direction: column-reverse;
+    border-radius: 10px;
+    margin: 0;
+    padding: 0;
+    &:hover {
+      background-color: var(--item-background-hover);
+    }
     & .item-header {
       & .item-title {
         display: flex;
@@ -943,6 +958,14 @@ main .items {
         justify-content: space-between;
         & a {
           width: 100%;
+          height: 100%;
+          padding: 34px 16px 38px;
+          display: flex;
+          align-items: flex-start;
+          gap: 8px;
+          &:hover {
+            background-color: transparent;
+          }
           /* 已分享的文章页-文章卡片-标题 */
           &[href^="/history"] {
             width: 100%;
@@ -963,25 +986,31 @@ main .items {
           }
         }
       }
-      & .item-title {
-        & a {
-          display: flex;
-          align-items: flex-start;
-        }
-      }
       & .category {
-        margin-left: 28px;
-        margin-top: -6px;
+        position: absolute;
+        left: 38px;
+        bottom: 8px;
       }
     }
     & .item-meta {
       & .item-meta-info {
-        display: flex;
-        justify-content: space-between;
-        padding: 0 12px 0 24px;
-        margin: 4px 0 -2px;
+        & .item-meta-info-title,
+        .item-meta-info-site-url {
+          position: absolute;
+          left: 32px;
+          top: 12px;
+          & a {
+            &:hover {
+              color: var(--link-hover-color);
+              background-color: var(--link-hover-bg-color);
+            }
+          }
+        }
         & .item-meta-info-timestamp {
           order: 3;
+          position: absolute;
+          right: 8px;
+          top: 12px;
         }
         /* 隐藏文章卡片的阅读时间 */
         & .item-meta-info-reading-time {
@@ -993,24 +1022,38 @@ main .items {
         justify-content: flex-end;
         align-items: flex-start;
         position: absolute;
-        bottom: 0;
-        right: 0;
+        gap: 8px;
+        z-index: 2;
+        bottom: 8px;
+        right: 8px;
         /* 默认隐藏全部按钮，可根据需要设置 */
         /* 已读/未读按钮 */
         & .item-meta-icons-read {
           display: var(--item-meta-icons-read);
+          & .icon-label {
+            font-size: var(--item-meta-icons-read-font-size);
+          }
         }
         /* 收藏按钮 */
         & .item-meta-icons-star {
           display: var(--item-meta-icons-star);
+          & .icon-label {
+            font-size: var(--item-meta-icons-star-font-size);
+          }
         }
         /* 分享按钮 */
         & .item-meta-icons-share {
           display: var(--item-meta-icons-share);
+          & .icon-label {
+            font-size: var(--item-meta-icons-share-font-size);
+          }
         }
         /*  取消分享按钮 */
         & .item-meta-icons-delete {
           display: var(--item-meta-icons-delete);
+          & .icon-label {
+            font-size: var(--item-meta-icons-delete-font-size);
+          }
           /* 文章卡片-取消分享 按钮 */
           & button[data-url^="/entry/unshare/"] {
             display: flex;
@@ -1058,6 +1101,9 @@ main .items {
         /* 保存按钮 */
         & button[data-save-url^="/entry/save/"] {
           display: var(--item-meta-icons-save);
+          & .icon-label {
+            font-size: var(--item-meta-icons-save-font-size);
+          }
           /* 保留 保存完成 文本 */
           &[data-completed="true"] {
             & .icon-label {
@@ -1069,10 +1115,16 @@ main .items {
         /* 跳转原文按钮 */
         & .item-meta-icons-external-url {
           display: var(--item-meta-icons-external-url);
+          & .icon-label {
+            font-size: var(--item-meta-icons-external-url-font-size);
+          }
         }
         /* 跳转评论按钮 */
         & .item-meta-icons-comments {
           display: var(--item-meta-icons-comments);
+          & .icon-label {
+            font-size: var(--item-meta-icons-comments-font-size);
+          }
         }
       }
     }
@@ -1093,126 +1145,204 @@ main .items {
     position: relative;
     border-radius: 10px;
     border: 1px solid var(--item-border-color);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    &:hover {
+      background-color: var(--item-background-hover);
+    }
     & .item-header {
-      display: flex;
-      column-gap: 8px;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      &.item-titel {
+      order: 2;
+      position: relative;
+      z-index: 1;
+      & .item-title {
         width: 100%;
+        height: 100%;
+        & a {
+          width: 100%;
+          height: 100%;
+          padding: 8px 8px 104px;
+          z-index: 0;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          &:hover {
+            background-color: transparent;
+          }
+        }
       }
       & .feed-entries-counter {
         position: absolute;
-        right: 12px;
+        top: 8px;
+        right: 8px;
         display: inline-flex;
       }
       & .category {
         position: absolute;
-        left: 14px;
-        top: 78px;
-        z-index: 1;
+        left: 12px;
+        bottom: 44px;
       }
     }
     & .item-meta {
+      order: 3;
       & ul {
         margin: 0;
       }
       & .item-meta-info {
-        padding: 0 0 32px;
-        position: relative;
+        & .item-meta-info-site-url {
+          position: absolute;
+          left: 8px;
+          bottom: 80px;
+          & a {
+            color: var(--category-link-color);
+            &:hover {
+              color: var(--category-link-hover-color);
+            }
+          }
+        }
+        /* 最后检查时间 */
+        & .item-meta-info-checked-at {
+          position: absolute;
+          bottom: 80px;
+          right: 8px;
+        }
+        /* 下次检查时间 */
+        & .item-meta-info-next-check-at {
+          position: absolute;
+          bottom: 48px;
+          right: 8px;
+        }
       }
-      /* 最后检查时间 */
-      & .item-meta-info-checked-at {
-        position: absolute;
-        top: 0;
-        right: 4px;
-      }
-      /* 下次检查时间 */
-      & .item-meta-info-next-check-at {
-        position: absolute;
-        right: 4px;
-        bottom: 0;
-      }
+
       & .item-meta-icons {
+        position: absolute;
+        bottom: 8px;
+        left: 8px;
         display: flex;
-        justify-content: flex-end;
         gap: 8px;
-        align-items: center;
+        z-index: 1;
         /* 刷新源 按钮 */
         & .item-meta-icons-refresh {
           display: var(--item-meta-icons-refresh);
+          & .icon-label {
+            font-size: var(--item-meta-icons-refresh-font-size);
+          }
         }
         /* 编辑源 按钮 */
         & .item-meta-icons-edit {
-          display: var(--item-meta-icons-edit);
+          display: var(--item-meta-icons-edit-feed);
+          & .icon-label {
+            font-size: var(--item-meta-icons-edit-feed-font-size);
+          }
         }
         /* 删除源 按钮 */
         & .item-meta-icons-remove {
-          display: var(--item-meta-icons-remove);
+          display: var(--item-meta-icons-remove-feed);
           & > button {
             width: fit-content;
+            & .icon-label {
+              font-size: var(--item-meta-icons-remove-feed-font-size);
+            }
           }
           /* 删除源 的confirm标题 */
           & .confirm::before {
             content: "删除源";
           }
         }
+        /* 全部标记已读 */
+        & .item-meta-icons-mark-as-read {
+          display: var(--item-meta-icons-mark-as-read-feed);
+          & .icon-label {
+            font-size: var(--item-meta-icons-mark-as-read-feed-font-size);
+          }
+        }
       }
     }
-    /* 错误提示 */
-    & .parsing-error {
-      margin: 0;
-      padding: 8px;
-      color: var(--parsing-error-color);
+    /* 未读状态 */
+    &.feed-has-unread {
+      & .confirm {
+        background-color: var(--feed-has-unread-background-color);
+      }
     }
-    &.feed-has-unread .confirm {
-      background-color: var(--feed-has-unread-background-color);
-    }
-    &.feed-parsing-error .confirm {
-      background-color: var(--feed-parsing-error-background-color);
+    /* 错误状态 */
+    &.feed-parsing-error {
+      /* 错误提示 */
+      & .parsing-error {
+        order: 1;
+        z-index: 0;
+        margin: 0;
+        padding: 8px;
+        color: var(--parsing-error-color);
+      }
+      &.confirm {
+        background-color: var(--feed-parsing-error-background-color);
+      }
     }
   }
   /* 分类卡片 */
   & .category-item {
     border-radius: 10px;
     border: 1px solid var(--item-border-color);
+    position: relative;
+    padding: 0;
+    &:hover {
+      background-color: var(--item-background-hover);
+    }
     & .item-title {
+      width: 100%;
+      height: 100%;
       & a {
         display: flex;
         justify-content: space-between;
+        padding: 8px 8px 64px;
+        &:hover {
+          background-color: transparent;
+        }
       }
     }
     & .item-meta {
+      bottom: 8px;
+      left: 8px;
+      position: absolute;
       & .item-meta-info {
-        padding-left: 8px;
       }
       & .item-meta-icons {
         margin: 0;
         display: flex;
-        justify-content: flex-end;
         gap: 8px;
         align-items: center;
         /* 查看内容按钮 */
         & .item-meta-icons-entries {
           display: var(--item-meta-icons-entries);
+          & .icon-label {
+            font-size: var(--item-meta-icons-entries-font-size);
+          }
         }
         /* 查看源 按钮 */
         & .item-meta-icons-feeds {
           display: var(--item-meta-icons-feeds);
+          & .icon-label {
+            font-size: var(--item-meta-icons-feeds-font-size);
+          }
         }
         /* 编辑分类 按钮 */
         & .item-meta-icons-edit {
           display: var(--item-meta-edit);
+          & .icon-label {
+            font-size: var(--item-meta-edit-font-size);
+          }
         }
         /* 全部标为已读 按钮 */
         & .item-meta-icons-mark-as-read {
           display: var(--item-meta-icons-mark-as-read);
+          & .icon-label {
+            font-size: var(--item-meta-icons-mark-as-read-font-size);
+          }
         }
       }
     }
     &.category-has-unread .confirm {
-      background-color: var(--category-has-unread-background-color);
+      background-color: var(--item-background-hover);
     }
   }
 }
