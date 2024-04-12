@@ -69,7 +69,7 @@
   /* 文章详情页-底部四个按钮（替换[]里的内容） */
   .entry .entry-header .entry-actions ul li {
     /* 第一个按钮 */
-    & .page-button[data-toggle-status] {
+    & > .page-button[data-toggle-status] {
       width: 40px;
       height: 40px;
       position: fixed;
@@ -84,7 +84,7 @@
       }
     }
     /* 第二个按钮 */
-    & .page-button[data-toggle-bookmark] {
+    & > .page-button[data-toggle-bookmark] {
       width: 40px;
       height: 40px;
       position: fixed;
@@ -99,7 +99,7 @@
       }
     }
     /* 第三个按钮 */
-    & .page-button[data-fetch-content-entry] {
+    & > .page-button[data-fetch-content-entry] {
       width: 40px;
       height: 40px;
       position: fixed;
@@ -114,7 +114,7 @@
       }
     }
     /* 第四个按钮 */
-    & .page-link[data-original-link] {
+    & > .page-link[data-original-link] {
       width: 40px;
       height: 40px;
       position: fixed;
