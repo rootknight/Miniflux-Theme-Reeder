@@ -1683,7 +1683,6 @@ main {
     /* 图片视频等比全宽 */
     & :is(iframe, video, img, pre) {
       width: 100%;
-      height: auto;
       border-radius: 5px;
     }
     /* 引用块 */
