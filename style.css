@@ -1683,6 +1683,8 @@ main {
     /* 视频 */
     & :is(iframe, video, pre) {
       width: 100%;
+      height: 100%;
+      aspect-ratio: 16/9;
       border: none;
       border-radius: 5px;
     }
