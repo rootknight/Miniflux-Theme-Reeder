@@ -1680,9 +1680,17 @@ main {
     font-weight: var(--article-content-font-weight);
     overflow: auto;
     animation: fadein var(--article-animation-duration) ease-in;
-    /* 图片视频等比全宽 */
-    & :is(iframe, video, img, pre) {
+    /* 视频 */
+    & :is(iframe, video, pre) {
       width: 100%;
+      border: none;
+      border-radius: 5px;
+    }
+    /* 图片 */
+    & img {
+      width: 100%;
+      height: 100%;
+      border: none;
       border-radius: 5px;
     }
     /* 引用块 */
