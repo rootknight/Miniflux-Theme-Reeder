@@ -1326,6 +1326,11 @@ main .pagination-bottom {
       flex-direction: row;
       & li {
         background-color: var(--body-background);
+        & button {
+          & span {
+            display: none;
+          }
+        }
       }
     }
   }
@@ -1345,6 +1350,13 @@ main .pagination-bottom {
       border-radius: 10px;
       height: fit-content;
       align-items: flex-end;
+      & li {
+        & button {
+          & span {
+            display: none;
+          }
+        }
+      }
     }
   }
   /* 按钮样式 */
