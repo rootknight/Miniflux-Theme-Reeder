@@ -2,25 +2,27 @@
 使用css原生嵌套，基于官方css修改，移除冗余操作，适配移动端，适配暗黑模式
 复制到 设置-自定义CSS */
 
-/* 自定义配置start（可根据自己喜好配置） */
+/* ========================================= */
+/* 1. CSS变量定义                            */
+/* ========================================= */
+
+/* 1.1 自定义配置（可根据个人喜好调整） */
 :root {
   /* 文章详情页 */
-  /* 标题 */
   --article-title-font-size: 1.3rem; /* 标题字号 */
   --article-title-line-height: 1.4; /* 标题行高 */
   --article-title-font-weight: 800; /* 标题粗细 */
-  /* 文章内容 */
-  --article-content-font-size: 1.025rem; /* 字号 */
-  --article-content-line-height: 1.6; /* 行高 */
-  --article-content-font-weight: 400; /* 粗细 */
+  --article-content-font-size: 1.025rem; /* 文章内容字号 */
+  --article-content-line-height: 1.6; /* 文章内容行高 */
+  --article-content-font-weight: 400; /* 文章内容粗细 */
   --article-top-padding: 80px; /* 顶部padding */
   --article-bottom-padding: 96px; /* 底部padding */
 
   /* 动画速度（0为禁用） */
-  --item-animation-duration: 120ms; /* 文章卡片 */
-  --article-animation-duration: 120ms; /* 文章内容 */
+  --item-animation-duration: 120ms; /* 文章卡片动画时长 */
+  --article-animation-duration: 120ms; /* 文章内容动画时长 */
 
-  /* 文章卡片按钮（none 不显示；inline-blcok 显示;font-size 0为不显示） */
+  /* 文章卡片按钮显示控制（none: 不显示；inline-block: 显示；font-size: 0: 不显示文本） */
   --item-meta-icons-read: none; /* 已读/未读 */
   --item-meta-icons-read-font-size: 0;
   --item-meta-icons-star: none; /* 收藏 */
@@ -36,7 +38,7 @@
   --item-meta-icons-comments: none; /* 跳转评论 */
   --item-meta-icons-comments-font-size: 0;
 
-  /* 源卡片按钮（none 不显示；inline-block 显示;font-size 0为不显示） */
+  /* 源卡片按钮显示控制 */
   --item-meta-icons-refresh: inline; /* 刷新源 */
   --item-meta-icons-refresh-font-size: 0;
   --item-meta-icons-edit-feed: inline; /* 编辑源 */
@@ -46,7 +48,7 @@
   --item-meta-icons-mark-as-read-feed: inline; /* 全部标记为已读 */
   --item-meta-icons-mark-as-read-feed-font-size: 0.8rem;
 
-  /* 分类卡片（none 不显示；inline-block 显示;font-size 0为不显示） */
+  /* 分类卡片按钮显示控制 */
   --item-meta-icons-entries: none; /* 查看所有文章 */
   --item-meta-icons-entries-font-size: 0.8rem;
   --item-meta-icons-feeds: inline; /* 查看所有源 */
@@ -56,7 +58,7 @@
   --item-meta-icons-mark-as-read: inline; /* 全部标记为已读 */
   --item-meta-icons-mark-as-read-font-size: 0.8rem;
 
-  /* 手机版文章详情页按钮（none 不显示；inline-flex 显示） */
+  /* 手机版文章详情页按钮显示控制（none: 不显示；inline-flex: 显示） */
   --data-toggle-status: inline-flex; /* 已读/未读 */
   --data-toggle-bookmark: inline-flex; /* 收藏 */
   --data-save-entry: inline-flex; /* 保存 */
@@ -84,7 +86,7 @@
       }
     }
     /* 第二个按钮 */
-    & > .page-button[data-toggle-bookmark] {
+    & > .page-button[data-toggle-starred] {
       width: 40px;
       height: 40px;
       position: fixed;
@@ -114,7 +116,7 @@
       }
     }
     /* 第四个按钮 */
-    & > .page-link[data-original-link] {
+    & > .page-link[data-comments-link] {
       width: 40px;
       height: 40px;
       position: fixed;
@@ -327,6 +329,48 @@
     --counter-color: #bbb;
   }
 }
+
+/* 1.2 基础样式变量 */
+:root {
+  /* 颜色系统 */
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #4a4a4a;
+  --color-text-light: #6a6a6a;
+  --color-border: #e2e2e2;
+  --color-background: #ffffff;
+  --color-background-secondary: #f7f7f7;
+  --color-background-tertiary: #f0f0f0;
+  --color-accent: #0070f3;
+  --color-accent-hover: #0050b3;
+  --color-danger: #ff0000;
+  --color-success: #00a050;
+  --color-warning: #f5a623;
+  --color-read: #888888;
+  --color-unread: #0070f3;
+
+  /* 尺寸系统 */
+  --size-border-radius: 8px;
+  --size-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --size-spacing-xs: 4px;
+  --size-spacing-sm: 8px;
+  --size-spacing-md: 16px;
+  --size-spacing-lg: 24px;
+  --size-spacing-xl: 32px;
+
+  /* 字体系统 */
+  --font-family-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --font-family-serif: Georgia, "Times New Roman", serif;
+  --font-family-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+
+  /* 布局变量 */
+  --header-height: 56px;
+  --sidebar-width: 240px;
+  --content-max-width: 800px;
+  --item-height: 80px;
+}
+
 :root {
   --entry-content-font-weight: 400;
   --entry-content-font-family: -apple-system, system-ui, BlinkMacSystemFont,
@@ -443,7 +487,7 @@ a {
 .flash-message {
   position: fixed;
   top: 104px;
-  max-width: 820px;
+  max-width: 900px;
   width: 100%;
   animation: fadeOut 5s linear forwards;
   margin: 0;
@@ -467,41 +511,50 @@ a {
   padding: 0;
 }
 
-/* 全局header-顶部菜单栏（固定） */
+/* ========================================= */
+/* 4. 页面布局组件                           */
+/* ========================================= */
+
+/* 4.1 全局Header - 顶部菜单栏（固定） */
 .header {
   position: fixed;
   z-index: 111;
   top: 0;
   width: 100%;
-  max-width: 820px;
+  max-width: 900px;
   margin: 0;
   padding: 0 16px;
   height: 56px;
   background: var(--body-background);
   display: flex;
   align-items: center;
-  /* header图标按钮 */
+
+  /* 导航菜单容器 */
   & nav {
     width: 100%;
+
     /* 隐藏logo */
     & .logo {
       display: none;
     }
+
     /* 图标水平分布 */
     & #header-menu {
       display: flex;
       justify-content: space-between;
       width: 100%;
+
+      /* 导航菜单项 */
       & li {
         /* 替换导航栏文字为图标 */
-        /* 设置字体大小为0隐藏菜单文字 */
-        font-size: 0;
+        font-size: 0; /* 隐藏菜单文字 */
         width: 48px;
         height: 48px;
         display: flex;
         align-items: center;
         padding: 0;
         border: none;
+
         /* 图标选中效果 */
         &.active {
           & > a {
@@ -512,9 +565,11 @@ a {
             background-color: var(--title-color);
           }
         }
+
+        /* 导航链接样式 */
         & > a {
-          /* 图标padding */
           padding: 4px;
+
           &:hover {
             z-index: 1;
             font-size: 0;
@@ -530,101 +585,12 @@ a {
           &[href$="/subscribe"] {
             display: none;
           }
-          /* 显示未读计数 */
-          &[href$="/unread"] {
-            width: 40px;
-            height: 40px;
-            & .unread-counter-wrapper {
-              & .unread-counter {
-                /* 超过999时，显示999 */
-                font-size: 10px;
-                font-weight: 700;
-                position: absolute;
-                z-index: 1;
-                top: 18px;
-                left: 26px;
-                white-space: nowrap;
-                width: 20px;
-                height: 20px;
-                display: flex;
-                border-radius: 50%;
-                justify-content: center;
-                align-items: center;
-                overflow: hidden;
-                color: var(--title-color);
-                background-color: transparent;
-              }
-            }
-          }
-          /* 设置图标，采用 https://yesicon.app/tabler 图标 */
-          &::before {
-            /* 使用空content,mask-image应用svg */
-            mask-size: cover;
-            mask-repeat: no-repeat;
-            background-color: var(--button-primary-color);
-            display: block;
-            width: 32px;
-            height: 32px;
-            content: "";
-          }
-          &[href$="/unread"]::before {
-            mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNjY2NjY2MiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIiBkPSJNMyAxMmE5IDkgMCAxIDAgMTggMGE5IDkgMCAxIDAtMTggMCIvPjwvc3ZnPg==);
-            position: absolute;
-            top: 12px;
-            z-index: 10;
-          }
-          &[href$="/starred"]::before {
-            mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNjY2NjY2MiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIiBkPSJtMTIgMTcuNzVsLTYuMTcyIDMuMjQ1bDEuMTc5LTYuODczbC01LTQuODY3bDYuOS0xbDMuMDg2LTYuMjUzbDMuMDg2IDYuMjUzbDYuOSAxbC01IDQuODY3bDEuMTc5IDYuODczeiIvPjwvc3ZnPg==");
-          }
-          &[href$="/history"]::before {
-            mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNjY2NjY2MiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIiBkPSJNMyAxMmE5IDkgMCAxIDAgMTggMGE5IDkgMCAxIDAtMTggMG05IDBoMy41TTEyIDd2NSIvPjwvc3ZnPg==");
-          }
-          &[href$="/feeds"]::before {
-            mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNjY2NjY2MiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIiBkPSJNNCAxOWExIDEgMCAxIDAgMiAwYTEgMSAwIDEgMC0yIDBNNCA0YTE2IDE2IDAgMCAxIDE2IDE2TTQgMTFhOSA5IDAgMCAxIDkgOSIvPjwvc3ZnPg==");
-          }
-          &[href$="/categories"]::before {
-            mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNjY2NjY2MiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIiBkPSJNNSA0aDRsMyAzaDdhMiAyIDAgMCAxIDIgMnY4YTIgMiAwIDAgMS0yIDJINWEyIDIgMCAwIDEtMi0yVjZhMiAyIDAgMCAxIDItMiIvPjwvc3ZnPg==");
-          }
-          &[href$="/search"]::before {
-            mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNjY2NjY2MiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIiBkPSJNMyAxMGE3IDcgMCAxIDAgMTQgMGE3IDcgMCAxIDAtMTQgMG0xOCAxMWwtNi02Ii8+PC9zdmc+");
-          }
-          &[href$="/settings"]::before {
-            mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDI0IDI0Ij48ZyBmaWxsPSJub25lIiBzdHJva2U9IiNjY2NjY2MiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIj48cGF0aCBkPSJNMTAuMzI1IDQuMzE3Yy40MjYtMS43NTYgMi45MjQtMS43NTYgMy4zNSAwYTEuNzI0IDEuNzI0IDAgMCAwIDIuNTczIDEuMDY2YzEuNTQzLS45NCAzLjMxLjgyNiAyLjM3IDIuMzdhMS43MjQgMS43MjQgMCAwIDAgMS4wNjUgMi41NzJjMS43NTYuNDI2IDEuNzU2IDIuOTI0IDAgMy4zNWExLjcyNCAxLjcyNCAwIDAgMC0xLjA2NiAyLjU3M2MuOTQgMS41NDMtLjgyNiAzLjMxLTIuMzcgMi4zN2ExLjcyNCAxLjcyNCAwIDAgMC0yLjU3MiAxLjA2NWMtLjQyNiAxLjc1Ni0yLjkyNCAxLjc1Ni0zLjM1IDBhMS43MjQgMS43MjQgMCAwIDAtMi41NzMtMS4wNjZjLTEuNTQzLjk0LTMuMzEtLjgyNi0yLjM3LTIuMzdhMS43MjQgMS43MjQgMCAwIDAtMS4wNjUtMi41NzJjLTEuNzU2LS40MjYtMS43NTYtMi45MjQgMC0zLjM1YTEuNzI0IDEuNzI0IDAgMCAwIDEuMDY2LTIuNTczYy0uOTQtMS41NDMuODI2LTMuMzEgMi4zNy0yLjM3YzEgLjYwOCAyLjI5Ni4wNyAyLjU3Mi0xLjA2NSIvPjxwYXRoIGQ9Ik05IDEyYTMgMyAwIDEgMCA2IDBhMyAzIDAgMCAwLTYgMCIvPjwvZz48L3N2Zz4=");
-          }
-          &[href$="/logout"]::before {
-            mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDI0IDI0Ij48ZyBmaWxsPSJub25lIiBzdHJva2U9IiNjY2NjY2MiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIj48cGF0aCBkPSJNMTQgOFY2YTIgMiAwIDAgMC0yLTJINWEyIDIgMCAwIDAtMiAydjEyYTIgMiAwIDAgMCAyIDJoN2EyIDIgMCAwIDAgMi0ydi0yIi8+PHBhdGggZD0iTTkgMTJoMTJsLTMtM20wIDZsMy0zIi8+PC9nPjwvc3ZnPg==");
-          }
         }
       }
     }
   }
 }
 
-/* 点击标题返回顶部(固定)-暂时弃用 */
-.skip-to-content-link {
-  position: fixed;
-  padding: 0;
-  margin: 0;
-  max-width: 820px;
-  z-index: 101;
-  top: -48px;
-  width: 100%;
-  height: 48px;
-  background-color: var(--body-background);
-  translate: none;
-  inset-inline-start: unset;
-  font-size: 0;
-  color: transparent;
-  border: none;
-  &:hover {
-    color: transparent;
-    background-color: var(--body-background);
-  }
-  &:focus {
-    color: transparent;
-    background-color: var(--body-background);
-  }
-}
 /* 一级页面-page-header（固定到全局header下） */
 .page-header {
   display: flex;
@@ -635,7 +601,7 @@ a {
   position: fixed;
   z-index: 101;
   top: 56px;
-  max-width: 820px;
+  max-width: 900px;
   width: 100%;
   height: 48px;
   background: var(--body-background);
@@ -803,22 +769,26 @@ main .pagination-top {
   display: none;
 }
 
-/* 一级页面-主体 */
+/* 4.3 主内容区域 */
 main {
   margin: 0;
-  padding: 108px 0 0;
+  padding: 108px 0 0; /* 顶部内边距，为固定header留出空间 */
+
+  /* 内容列表区域 */
   & .items {
     padding: 0 16px 16px;
   }
-  /* 隐藏page-footer，和header功能重复 */
+
+  /* 隐藏页面底部，功能与header重复 */
   & .page-footer {
     display: none;
   }
 }
 
-/* 一级页面-卡片样式 */
+/* 5. 内容卡片组件 */
+/* 5.1 卡片通用样式 */
 main .items {
-  /* 卡片通用样式 */
+  /* 基础卡片样式 */
   & .item {
     margin-bottom: 8px;
     animation: fadein var(--item-animation-duration) ease-in;
@@ -887,7 +857,7 @@ main .items {
       }
     }
   }
-  /* 文章卡片 */
+  /* 5.2 文章卡片样式 */
   & .entry-item {
     border: none;
     position: relative;
@@ -896,6 +866,8 @@ main .items {
     border-radius: 10px;
     margin: 0;
     padding: 0;
+
+    /* 悬停效果 */
     &:hover {
       background-color: var(--item-background-hover);
     }
@@ -1088,7 +1060,7 @@ main .items {
     }
   }
 
-  /* 源卡片 */
+  /* 5.3 源卡片样式 */
   & .feed-item {
     position: relative;
     border-radius: 10px;
@@ -1096,6 +1068,8 @@ main .items {
     padding: 0;
     display: flex;
     flex-direction: column;
+
+    /* 悬停效果 */
     &:hover {
       background-color: var(--item-background-hover);
     }
@@ -1227,12 +1201,14 @@ main .items {
       }
     }
   }
-  /* 分类卡片 */
+  /* 5.4 分类卡片样式 */
   & .category-item {
     border-radius: 10px;
     border: 1px solid var(--item-border-color);
     position: relative;
     padding: 0;
+
+    /* 悬停效果 */
     &:hover {
       background-color: var(--item-background-hover);
     }
@@ -1300,8 +1276,8 @@ main .pagination-bottom {
   display: none;
 }
 
-/* 文章详情页 */
-/* 文章详情页-顶部操作栏（固定） */
+/* 6. 文章详情页组件 */
+/* 6.1 文章详情页-顶部操作栏（固定） */
 .entry .entry-header .entry-actions {
   margin: 0;
   /* 小于900px宽度时,覆盖header的设置和登出 */
@@ -1470,7 +1446,7 @@ main .pagination-bottom {
   }
 }
 
-/* 文章详情页-头部标题 */
+/* 6.2 文章详情页-头部标题 */
 .entry {
   padding-top: var(--article-top-padding);
   & .entry-header {
@@ -1540,6 +1516,16 @@ main .pagination-bottom {
       font-size: 0.95rem;
       color: var(--category-link-color);
       animation: fadein var(--article-animation-duration) ease-in;
+      & a {
+        color: var(--category-link-color);
+      }
+    }
+    & .entry-external-link {
+      padding: 4px 16px 8px;
+      animation: fadein var(--article-animation-duration) ease-in;
+      & a {
+        color: var(--category-link-color);
+      }
     }
     & .entry-date {
       margin: 0 24px;
@@ -1564,13 +1550,14 @@ main .pagination-bottom {
 .entry + main {
   padding-top: 0px;
 }
-/* 文章详情页-主体内容 */
+/* 6.3 文章详情页-主体内容 */
 main {
   /* 去除文章详情页顶部翻页栏 */
   & .pagination-entry-top {
     display: none;
   }
-  /* 文章详情-内容 */
+
+  /* 文章详情-内容区域 */
   & article.entry-content {
     padding: 16px 24px var(--article-bottom-padding);
     font-size: var(--article-content-font-size);
@@ -1633,14 +1620,14 @@ main {
   }
 }
 
-/* 文章详情页-底部操作栏（固定） */
+/* 6.4 文章详情页-底部操作栏（固定） */
 main .pagination-entry-bottom {
   position: fixed;
   z-index: 100;
   border: none;
   bottom: 0;
   width: 100%;
-  max-width: 820px;
+  max-width: 900px;
   height: calc(56px + constant(safe-area-inset-bottom));
   height: calc(56px + env(safe-area-inset-bottom));
   background: var(--body-background);
@@ -1732,15 +1719,33 @@ main .pagination-entry-bottom {
       height: 32px;
       content: "测试";
     }
+    /* 返回顶部按钮 */
+    & .elevator {
+      position: fixed;
+      bottom: 56px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      background-color: var(--button-primary-background);
+      border-radius: 999px;
+      font-size: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      & .icon {
+        margin: 0;
+      }
+    }
   }
 }
 
-/* 设置页 */
+/* 7. 设置页组件 */
 main {
   /* 标题样式 */
   & > h3 {
     margin: 8px 16px;
   }
+
   /* 表单样式 */
   & form {
     padding: 0 16px;
@@ -1807,7 +1812,7 @@ main {
   }
 }
 
-/* 搜索页 */
+/* 8. 搜索页组件 */
 main search form {
   display: flex;
   justify-content: space-between;

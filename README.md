@@ -38,3 +38,9 @@
     <img src="./screenshots/pc-unread.png" style="flex:1; margin: 5px;width:40%;height:auto">
     <img src="./screenshots/pc-article.png" style="flex:1; margin: 5px;width:40%;height:auto">
 </div>
+
+# 感谢
+
+- [Miniflux](https://github.com/miniflux/v2)
+- [Reeder](https://reederapp.com/)
+- [minifier](https://www.minifier.org/)
