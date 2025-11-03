@@ -24,7 +24,7 @@
 - 手机端使用 PWA 模式(安装到桌面使用)
   - `PWA显示模式`设置为 `独立（standalone）`
   - Android 使用 Chrome/Edge 添加至手机
-  - iPhone 使用 Safari 添加到屏幕
+  - iPhone 使用 Safari 共享添加到屏幕
 
 # 截图
 
