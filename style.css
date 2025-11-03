@@ -1722,8 +1722,8 @@ main .pagination-entry-bottom {
     /* 返回顶部按钮 */
     & .elevator {
       position: fixed;
-      bottom: 56px;
-      right: 16px;
+      bottom: 96px;
+      right: 24px;
       width: 32px;
       height: 32px;
       background-color: var(--button-primary-background);
